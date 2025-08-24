@@ -50,4 +50,35 @@ const Review = db.define('userreview',
 User.hasMany(Review, { foreignKey: 'userId' });
 Review.belongsTo(User, { foreignKey: 'userId' });
 
-    module.exports = User, Review;
+
+const Book = db.define('Book', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  author: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  book_url: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isUrl: true //URL validation
+    }
+  },
+  image_url: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    validate: {
+      isUrl: true
+    }
+  }
+});
+
+    module.exports = {
+  User,
+  Review,
+  Book
+};
