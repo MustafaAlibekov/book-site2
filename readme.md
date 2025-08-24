@@ -49,8 +49,8 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone <URL_ВАШЕГО_РЕПОЗИТОРИЯ>
-   cd <имя_папки_проекта>
+   git clone https://github.com/MustafaAlibekov/book-site
+   cd UserAPI
    ```
 
 2. Установите зависимости:
