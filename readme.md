@@ -10,6 +10,7 @@
 * [Endpoints API](#endpoints-api)
 * [Примеры запросов](#примеры-запросов)
 * [Зависимости](#зависимости)
+* [Docker Compose](#docker-compose)
 
 ---
 
@@ -49,8 +50,8 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone <URL_ВАШЕГО_РЕПОЗИТОРИЯ>
-   cd <имя_папки_проекта>
+   git clone https://github.com/MustafaAlibekov/book-site
+   cd UserAPI
    ```
 
 2. Установите зависимости:
@@ -71,13 +72,26 @@
    BCRYPT_SALT_ROUNDS=10
    ```
 
-4. Запустите базу данных с помощью Docker Compose:
+4. Поднимите Docker контейнер с PostgreSQL:
 
    ```bash
    docker-compose up -d
    ```
 
-   Это запустит контейнер с PostgreSQL на порту `5432`.
+   Файл `docker-compose.yml` выглядит так:
+
+   ```yaml
+   version: "3.9"
+   services:
+     postgres:
+       image: postgres:17.6
+       environment:
+         POSTGRES_DB: "test_db"
+         POSTGRES_USER: "postgres"
+         POSTGRES_PASSWORD: "12345"
+       ports:
+         - "5432:5432"
+   ```
 
 5. Запустите сервер:
 
