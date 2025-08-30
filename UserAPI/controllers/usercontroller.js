@@ -20,13 +20,13 @@ exports.createUser = async (req, res) => {
             password,
             parseInt(process.env.BCRYPT_SALT_ROUNDS, 10)
         );
-        
+
         const newUser = await User.create({
             name: username,
-            password: hashedPassword
+            password: hashedPassword,
         });
-        
-        console.log("OK");
+
+        console.log('OK');
         res.status(201).json(newUser);
     } catch (e) {
         console.error('Ошибка при создании пользователя:', e);
@@ -36,7 +36,7 @@ exports.createUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     const userId = req.params.id;
-    
+
     try {
         const user = await User.findByPk(userId);
         if (!user) {
@@ -55,9 +55,9 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     const { username, password } = req.body;
     const userId = req.params.id;
-    
+
     try {
-        // Простая проверка: если пароль не существует, возвращаем ошибку
+        //если пароль не существует, возвращаем ошибку
         if (!password) {
             return res.status(400).json({ message: 'Пароль обязателен для обновления.' });
         }
@@ -66,22 +66,22 @@ exports.updateUser = async (req, res) => {
             password,
             parseInt(process.env.BCRYPT_SALT_ROUNDS, 10)
         );
-        
+
         const [updatedRows] = await User.update(
             {
                 name: username,
-                password: hashedPassword
+                password: hashedPassword,
             },
             {
                 where: {
-                    id: userId
-                }
+                    id: userId,
+                },
             }
         );
 
         if (updatedRows > 0) {
             const updatedUser = await User.findByPk(userId, {
-                attributes: { exclude: ['password'] }
+                attributes: { exclude: ['password'] },
             });
             return res.status(200).json(updatedUser);
         } else {

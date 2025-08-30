@@ -32,12 +32,12 @@ const Review = db.define('userreview',
         primaryKey: true,
         allowNull: false
     },
-    reviev_title: {
+    review_title: {
         type: Sequelize.STRING,
         allowNull: false,
         len: [0, 30]
     },
-    reviev_description: {
+    review_description: {
         type: Sequelize.STRING,
         allowNull: false
     },
