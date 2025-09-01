@@ -8,6 +8,6 @@ UserRoute.post('/createuser', controller.createUser)
 //UserRoute.patch('/updateuser/:id')
 UserRoute.put('/updateuser/:id', controller.updateUser)
 UserRoute.delete('/deleteuser/:id', controller.deleteUser)
-
+UserRoute.post('/login', controller.login)
 
 module.exports = UserRoute

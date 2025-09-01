@@ -1,6 +1,5 @@
-const express = require('express');
 const bcrypt = require('bcrypt');
-const User = require('../models/usermodel');
+const {User} = require('../models/usermodel');
 require('dotenv').config();
 
 exports.getAllUsers = async (req, res) => {
@@ -93,3 +92,20 @@ exports.updateUser = async (req, res) => {
         res.status(500).json(e);
     }
 };
+//авторизация
+exports.login = async (req, res) => {
+    const { username, password } = req.body;
+    const user = getUser(username);
+
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+        res.status(401).json({ success: false, message: 'Invalid username or password' });
+        return;
+    }
+
+    const token = jwt.sign({ username: user.username }, jwtOptions.secretOrKey);
+    res.json({ success: true, token });
+};
+
+app.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({ success: true, message: 'Welcome to the protected route!' });
+});
